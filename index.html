@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="author" content="unsorry">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+
+    <link href="https://unsorry.net/assets-date/images/favicon.png" rel="shortcut icon" type="image/png">
+    <title>Peta Web</title>
+
+    <style>
+      html, body, #map {
+        width: 100%;
+        height: 100%;
+        padding-top: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#"><b><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Peta D.I. Yogyakarta</b></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#legendModal"><i class="fas fa-layer-group"></i> Legenda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#infoModal"><i class="fas fa-info-circle"></i> Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://getbootstrap.com" target="_blank"><i class="fas fa-leaf"></i> Leaflet JS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://getbootstrap.com" target="_blank"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End of Topbar -->
+
+    <!-- Modal Info -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header alert-info">
+            <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-info-circle"></i> Info</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Peta ini dibuat dengan menggunakan Leaflet JavaScript Library dan Bootstrap 4.<br>
+            Data dalam format GeoJSON
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal Info -->
+
+    <!-- Modal Legend -->
+    <div class="modal fade" id="legendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header alert-info">
+            <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-layer-group"></i> Legenda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b>Kelas Jumlah Penduduk</b><br>
+            <svg width="40" height="20">
+              <rect width="40" height="20" style="fill:#bd0026;stroke-width:1;stroke:gray;opacity:0.7" />
+            </svg> Tinggi (> 100.000 Jiwa)<br>
+            <svg width="40" height="20">
+              <rect width="40" height="20" style="fill:#fd8d3c;stroke-width:1;stroke:gray;opacity:0.7" />
+            </svg> Sedang (50.000 - 100.000 Jiwa)<br>
+            <svg width="40" height="20">
+              <rect width="40" height="20" style="fill:#ffffb2;stroke-width:1;stroke:gray;opacity:0.7" />
+            </svg> Rendah (< 50.000 Jiwa)
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal Legend -->
+
+    <!-- Modal Feature -->
+    <div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header alert-info">
+            <h5 class="modal-title text-primary" id="feature-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="feature-info"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal Feature -->
+
+    <!-- Map Content -->
+    <div id="map"></div>
+
+    <script>
+      /* Initial Map */
+      var map = L.map('map').setView([-7.9,110.45],10); //lat, long, zoom
+      
+      /* Tile Basemap */
+      var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //attribution akan muncul di pojok kanan bawah
+        attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <a href="https://unsorry.net" target="_blank">unsorry@2020</a>'
+      });
+      basemap.addTo(map); //Memanggil basemap untuk ditampilkan ketika halaman dipanggil
+
+      /* GeoJSON Layer */
+      var adminkecamatanColors = {"Tinggi":"#bd0026", "Sedang":"#fd8d3c", "Rendah":"#ffffb2"};
+      var adminkecamatan = L.geoJson(null, {
+        /* Style polygon */
+        style: function (feature) { //Fungsi style polygon
+          return {
+            fillColor: adminkecamatanColors[feature.properties.klas_jml], //Warna tengah polygon
+            fillOpacity: 0.7, //Transparansi tengah polygon
+            color: "gray", //Warna garis tepi polygon
+            weight: 1, //Tebal garis tepi polygon
+            opacity: 1, //Transparansi garis tepi polygon
+          };
+        },
+        /* Highlight & Popup */
+        onEachFeature: function (feature, layer) {
+          var content = '<table class="table table-striped table-bordered table-sm">' +
+            '<tr><th>Kabupaten</th><td>' + feature.properties.KABUPATEN + '</tr>' +
+            '<tr><th>Jumlah Laki-laki</th><td>' + feature.properties.LAKI_LAKI + ' Jiwa</tr>' +
+            '<tr><th>Jumlah Perempuan</th><td>' + feature.properties.PEREMPUAN + ' Jiwa</tr>' +
+            '<tr><th>Jumlah Penduduk</th><td>' + feature.properties.JML_PDD + ' Jiwa</tr>' +
+            '<tr><th>Jumlah Keluarga</th><td>' + feature.properties.KK + '</tr>' +
+            '<tr><th>Luas</th><td>' + feature.properties.Luas_km2 + ' Km<sup>2</sup></tr>' +
+            '<tr><th>Kepadatan Penduduk</th><td>' + feature.properties.KPDT_PDD + ' Jiwa/Km<sup>2</sup></tr>' +
+            '</table>' +
+            '<small class="text-primary">Sumber: PODES BPS 2011</small>';
+          layer.on({
+            mouseover: function (e) { //Fungsi ketika mouse berada di atas obyek
+              var layer = e.target; //variabel layer
+              layer.setStyle({ //Highlight style
+                weight: 1, //Tebal garis tepi polygon
+                color: "gray", //Warna garis tepi polygon
+                opacity: 1, //Transparansi garis tepi polygon
+                fillColor: "cyan", //Warna tengah polygon
+                fillOpacity: 0.7, //Transparansi tengah polygon
+              });
+              adminkecamatan.bindTooltip(feature.properties.KECAMATAN + ", " + feature.properties.KABUPATEN , {sticky: true}); //Tooltip info
+            },
+            mouseout: function (e) { //Fungsi ketika mouse keluar dari area obyek
+              adminkecamatan.resetStyle(e.target); //Mengembalikan style polygon ke style awal
+              map.closePopup(); //Menutup popup
+            },
+            click: function (e) { //Fungsi ketika obyek di-klik
+              /* Modal Popup */
+              $("#feature-title").html("Kec. " + feature.properties.KECAMATAN); //Judul Modal
+              $("#feature-info").html(content); //Isi Modal
+              $("#featureModal").modal("show"); //Menampilkan featureModal
+            }
+          });
+        }
+      });
+      /* memanggil data geojson polygon */
+      $.getJSON("data/penduduk_kecamatan_diy_polygon.geojson", function (data) {
+        adminkecamatan.addData(data);
+        map.addLayer(adminkecamatan); //adminkecamatan ditampilkan ketika halaman dipanggil
+        map.fitBounds(adminkecamatan.getBounds()); //zoom to layer adminkecamatan
+      });
+
+      /* Control Layer */
+      var Layers = {  //list layer
+        'Batas Kecamatan<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="badge badge-primary text-light" data-toggle="modal" data-target="#legendModal">Legenda</a>': adminkecamatan,
+      };
+      var layerControl = L.control.layers(null, Layers, {collapsed:true});
+      layerControl.addTo(map);
+
+      /* Scale Bar */
+      L.control.scale({
+        maxWidth: 150,
+        imperial: false,
+      }).addTo(map);
+
+    </script>
+  </body>
+</html>
